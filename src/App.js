@@ -2,39 +2,58 @@ import React from 'react';
 import './variables.css';
 import './App.css';
 
+function insert(x) {
+  document.getElementById('display').innerText += x;
+}
+
+function clear() {
+  document.getElementById('display').innerText = '';
+}
+
+function evaluate() {
+  let value = eval(document.getElementById('display').innerText);
+  clear();
+  if(!Number.isSafeInteger(value)) {
+    document.getElementById('display').innerText = value.toPrecision(3);
+  } else {
+    document.getElementById('display').innerText = value;
+  }
+  
+}
+
 function App() {
   return (
     <div className="App">
-      <div className="display"></div>
+      <span className="display" id="display"></span>
       <div className="inputs">
       <div className="inputs__row">
-          <button className="btn">C</button>
-          <button className="btn">()</button>
-          <button className="btn">/</button>
-          <button className="btn">%</button>
+          <button className="btn" onClick={clear.bind(this)}>C</button>
+          <button className="btn" onClick={insert.bind(this, '/')}>/</button>
+          <button className="btn" onClick={insert.bind(this, '%')}>%</button>
+          <button className="btn" onClick={insert.bind(this, '')}>()</button>
         </div>
         <div className="inputs__row">
-          <button className="btn">x</button>
-          <button className="btn">9</button>
-          <button className="btn">8</button>
-          <button className="btn">7</button>
+          <button className="btn" onClick={insert.bind(this, '*')}>*</button>
+          <button className="btn" onClick={insert.bind(this, '9')}>9</button>
+          <button className="btn" onClick={insert.bind(this, '8')}>8</button>
+          <button className="btn" onClick={insert.bind(this, '7')}>7</button>
         </div>
         <div className="inputs__row">
-          <button className="btn">-</button>
-          <button className="btn">6</button>
-          <button className="btn">5</button>
-          <button className="btn">4</button>
+          <button className="btn" onClick={insert.bind(this, '-')}>-</button>
+          <button className="btn" onClick={insert.bind(this, '6')}>6</button>
+          <button className="btn" onClick={insert.bind(this, '5')}>5</button>
+          <button className="btn" onClick={insert.bind(this, '4')}>4</button>
         </div>
         <div className="inputs__row">
-          <button className="btn">+</button>
-          <button className="btn">3</button>
-          <button className="btn">2</button>
-          <button className="btn">1</button>
+          <button className="btn" onClick={insert.bind(this, '+')}>+</button>
+          <button className="btn" onClick={insert.bind(this, '3')}>3</button>
+          <button className="btn" onClick={insert.bind(this, '2')}>2</button>
+          <button className="btn" onClick={insert.bind(this, '1')}>1</button>
         </div>
         <div className="inputs__row">
-          <button className="btn" id="evaluate">=</button>
-          <button className="btn">0</button>
-          <button className="btn">.</button>
+          <button className="btn" id="evaluate" onClick={evaluate.bind(this)}>=</button>
+          <button className="btn" onClick={insert.bind(this, '0')}>0</button>
+          <button className="btn" onClick={insert.bind(this, '.')}>.</button>
         </div>
       </div>
 

@@ -33,34 +33,34 @@ function App() {
       <span className="display" id="display"></span>
       <div className="inputs">
       <div className="inputs__row row--1">
-          <button className="btn" id="clear" onClick={backspace.bind(this)}>&#10140;</button>
-          <button className="btn operation" onClick={insert.bind(this, '/')}>&#247;</button>
-          <button className="btn operation" onClick={insert.bind(this, '%')}>%</button>
-          <button className="btn operation" id="backspace" onClick={clear.bind(this)}>C</button>
+          <button className="btn" id="clear" onClick={backspace.bind(this)} aria-label="Backspace">&#10140;</button>
+          <button className="btn operation" onClick={insert.bind(this, '/')} aria-label="Divide">&#247;</button>
+          <button className="btn operation" onClick={insert.bind(this, '%')} aria-label="Modulus">%</button>
+          <button className="btn operation" id="backspace" onClick={clear.bind(this)} aria-label="Clear">C</button>
         </div>
         <div className="inputs__row row--2">
-          <button className="btn operation" onClick={insert.bind(this, '*')}>&#215;</button>
-          <button className="btn" onClick={insert.bind(this, '9')}>9</button>
-          <button className="btn" onClick={insert.bind(this, '8')}>8</button>
-          <button className="btn" onClick={insert.bind(this, '7')}>7</button>
+          <button className="btn operation" onClick={insert.bind(this, '*')} aria-label="Multiply">&#215;</button>
+          <button className="btn" onClick={insert.bind(this, '9')} aria-label="9">9</button>
+          <button className="btn" onClick={insert.bind(this, '8')} aria-label="8">8</button>
+          <button className="btn" onClick={insert.bind(this, '7')} aria-label="7">7</button>
         </div>
         <div className="inputs__row row--3">
-          <button className="btn operation" onClick={insert.bind(this, '-')}>&#8722;</button>
-          <button className="btn" onClick={insert.bind(this, '6')}>6</button>
-          <button className="btn" onClick={insert.bind(this, '5')}>5</button>
-          <button className="btn" onClick={insert.bind(this, '4')}>4</button>
+          <button className="btn operation" onClick={insert.bind(this, '-')} aria-label="Subtract">&#8722;</button>
+          <button className="btn" onClick={insert.bind(this, '6')} aria-label="6">6</button>
+          <button className="btn" onClick={insert.bind(this, '5')} aria-label="5">5</button>
+          <button className="btn" onClick={insert.bind(this, '4')} aria-label="4">4</button>
         </div>
         <div className="inputs__row row--4">
-          <button className="btn operation" onClick={insert.bind(this, '+')}>&#43;</button>
-          <button className="btn" onClick={insert.bind(this, '3')}>3</button>
-          <button className="btn" onClick={insert.bind(this, '2')}>2</button>
-          <button className="btn" onClick={insert.bind(this, '1')}>1</button>
+          <button className="btn operation" onClick={insert.bind(this, '+')} aria-label="Add">&#43;</button>
+          <button className="btn" onClick={insert.bind(this, '3')} aria-label="3">3</button>
+          <button className="btn" onClick={insert.bind(this, '2')} aria-label="2">2</button>
+          <button className="btn" onClick={insert.bind(this, '1')} aria-label="1">1</button>
         </div>
         <div className="inputs__row row--5">
-          <button className="btn" id="evaluate" onClick={evaluate.bind(this)}>=</button>
-          <button className="btn"></button>
-          <button className="btn" onClick={insert.bind(this, '0')}>0</button>
-          <button className="btn" onClick={insert.bind(this, '.')}>.</button>
+          <button className="btn" id="evaluate" onClick={evaluate.bind(this)} aria-label="Evaluate">=</button>
+          <button className="btn" aria-label=""></button>
+          <button className="btn" onClick={insert.bind(this, '0')} aria-label="0">0</button>
+          <button className="btn" onClick={insert.bind(this, '.')} aria-label=".">.</button>
         </div>
       </div>
     </div>

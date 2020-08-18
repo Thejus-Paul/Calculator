@@ -58,7 +58,7 @@ function App() {
         </div>
         <div className="inputs__row row--5">
           <button className="btn" id="evaluate" onClick={evaluate.bind(this)} aria-label="Evaluate">=</button>
-          <button className="btn" aria-label=""></button>
+          <button className="btn" aria-label="None"></button>
           <button className="btn" onClick={insert.bind(this, '0')} aria-label="0">0</button>
           <button className="btn" onClick={insert.bind(this, '.')} aria-label=".">.</button>
         </div>

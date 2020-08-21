@@ -1,69 +1,62 @@
+img {
+    width: 50%;
+    max-width: 100%;
+}
+
+.App {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    width: 100%;
+    background-color: var(--background-color);
+}   
+
+.display {
+    height: 25%;
+    width: 100%;
+    background-color: var(--secondary-color);
+    color: var(--white);
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: flex-start;
+    align-items: flex-end;
+    font-size: 3rem;
+    letter-spacing: 5px;
+}
+
+.inputs {
+    height: 75%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.inputs__row {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-around;
+}
+
+.btn {
+    border: none;
+    background-color: transparent;
+    padding: 2.5rem 10rem;
+    color: var(--white);
+    font-size: 2rem;
+}
+.evaluate {
+    width: 50px;
+    height: 50px;
+}
+
+
+.operation {
+    color: var(--primary-color);
+}
+
+
 @media screen and (min-width:300px) and (max-width:700px){
-    .App {
-        display: flex;
-        flex-direction: column;
-        height: 100vh;
-        width: 100%;
-        background-color: var(--background-color);
-    }   
-
-    .display {
-        height: 50%;
-        width: 100%;
-        background-color: var(--secondary-color);
-        color: var(--white);
-        display: flex;
-        flex-direction: row-reverse;
-        justify-content: flex-start;
-        align-items: flex-end;
-        font-size: 3rem;
-        letter-spacing: 5px;
-    }
-
-    .inputs {
-        height: 75%;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-around;
-    }
-
-    .inputs__row {
-        display: flex;
-        flex-direction: row-reverse;
-        justify-content: space-around;
-    }
-
     .btn {
-        border: none;
         padding: 5% 7%;
-        background-color: var(--background-color);
-        color: var(--white);
-        font-size: 2rem;
-    }
-    .evaluate {
-        background-color: var(--primary-color);
-        padding: 3% 6%;
-        margin-bottom: 10px;
-        font-weight: bold;
-        font-size: 2rem;
-        color: var(--background-color);
-        border-radius: 50px;
-    }
-
-    .operation {
-        color: var(--primary-color);
-    }
-    .space {
-        padding: 0px 2rem;
-    }
-
-    #clear {
-        transform: rotate(180deg);
-        color: var(--orange);
-    }
-
-    #backspace {
-        color: var(--red);
-        font-weight: bold;
     }
 }

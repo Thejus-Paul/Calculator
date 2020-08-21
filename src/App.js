@@ -28,7 +28,7 @@ function evaluate() {
 
 function credits() {
   clear();
-  alert("Made with ♥ by Thejus Paul \nGithub: https://github.com/thejus-paul/");
+  alert("Made with ♥ by Thejus Paul \nGithub: https://github.com/Thejus-Paul");
 }
 
 function App() {

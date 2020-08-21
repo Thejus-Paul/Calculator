@@ -1,9 +1,8 @@
 import React from 'react';
-import './variables.css';
 import './App.css';
 
 function insert(x) {
-  document.getElementById('display').innerHTML += x;
+  document.getElementById('display').innerText += x;
 }
 
 function clear() {
@@ -42,7 +41,7 @@ function App() {
           <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="30" height="30" viewBox="0 0 172 172"><g fill="none" fillRule="nonzero" stroke="none" strokeWidth="1" strokeLinecap="butt" strokeLinejoin="miter" strokeMiterlimit="10" strokeDasharray="" strokeDashoffset="0" fontFamily="none" fontWeight="none" fontSize="none" textAnchor="none" style={{mixBlendMode: "normal"}}><path d="M0,172v-172h172v172z" fill="none"></path><g id="original-icon" fill="#00bfa5"><path d="M137.6,28.66667h-103.2c-12.66493,0 -22.93333,10.2684 -22.93333,22.93333v68.8c0,12.66493 10.2684,22.93333 22.93333,22.93333h103.2c12.66493,0 22.93333,-10.2684 22.93333,-22.93333v-68.8c0,-12.66493 -10.2684,-22.93333 -22.93333,-22.93333zM120.4,91.73333h-60.69307l13.14653,13.14653c2.24173,2.24173 2.24173,5.8652 0,8.10693c-1.118,1.118 -2.58573,1.67987 -4.05347,1.67987c-1.46773,0 -2.93547,-0.56187 -4.05347,-1.67987l-22.93333,-22.93333c-2.24173,-2.24173 -2.24173,-5.8652 0,-8.10693l22.93333,-22.93333c2.24173,-2.24173 5.8652,-2.24173 8.10693,0c2.24173,2.24173 2.24173,5.8652 0,8.10693l-13.14653,13.14653h60.69307c3.1648,0 5.73333,2.56853 5.73333,5.73333c0,3.1648 -2.56853,5.73333 -5.73333,5.73333z"></path></g></g></svg>
           </button>
           <button className="btn operation" onClick={insert.bind(this, '/')} aria-label="Divide">&#247;</button>
-          <button className="btn operation" onClick={insert.bind(this, '%')} aria-label="Modulus">&#x25;</button>
+          <button className="btn operation" onClick={insert.bind(this, '%')} aria-label="Modulus">%</button>
           <button className="btn operation" id="backspace" onClick={clear.bind(this)} aria-label="Clear">&#x2718;</button>
         </div>
         <div className="inputs__row row--2">

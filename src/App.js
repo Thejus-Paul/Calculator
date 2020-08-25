@@ -45,6 +45,13 @@ class App extends Component {
   }
   
   backspace = () => {
+    let copyNumber = this.state.number;
+    copyNumber = copyNumber.split('')
+    copyNumber.pop()
+    copyNumber = copyNumber.join('')
+    this.setState({
+      number: copyNumber
+    })
     let text = document.getElementById('display').innerText
     text = text.split('')
     text.pop()

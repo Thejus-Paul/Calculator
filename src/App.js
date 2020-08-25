@@ -4,6 +4,11 @@ import './App.css';
 class App extends Component {
   constructor() {
     super();
+    this.state = {
+      number: '',
+      numberArray: [],
+      operatorArray: []
+    }
     this.insert = this.insert.bind(this)
     this.clear = this.clear.bind(this)
     this.backspace = this.backspace.bind(this)
@@ -12,17 +17,37 @@ class App extends Component {
   }
 
   insert = (x) => {
-   document.getElementById('display').innerText += x
+    if(typeof(x) === "number" || x === '.') {
+      this.setState({ number: this.state.number+x })
+    } 
+    else if(typeof(x) === "string") {
+      let copyNumberArray = this.state.numberArray
+      let copyOperatorArray = this.state.operatorArray
+      copyNumberArray.push(Number(this.state.number))
+      if(x !== '') copyOperatorArray.push(x)
+      this.setState({ 
+        number: '',
+        numberArray: copyNumberArray,
+        operatorArray: this.state.operatorArray
+       })
+      console.log(this.state.numberArray, this.state.operatorArray)
+    }
+    document.getElementById('display').innerText += x
   }
   
   clear = () => {
+    this.setState({
+      number: '',
+      numberArray: [],
+      operatorArray: []
+    })
     document.getElementById('display').innerText = ''
   }
   
   backspace = () => {
     let text = document.getElementById('display').innerText
-    text = text.split('');
-    text.pop();
+    text = text.split('')
+    text.pop()
     document.getElementById('display').innerText = text.join('')
   }
   
@@ -53,26 +78,26 @@ class App extends Component {
           </div>
           <div className="inputs__row row--2">
             <button className="btn operation" onClick={()=>this.insert('*')} aria-label="Multiply">&#215;</button>
-            <button className="btn" onClick={()=>this.insert('9')} aria-label="9">9</button>
-            <button className="btn" onClick={()=>this.insert('8')} aria-label="8">8</button>
-            <button className="btn" onClick={()=>this.insert('7')} aria-label="7">7</button>
+            <button className="btn" onClick={()=>this.insert(9)} aria-label="9">9</button>
+            <button className="btn" onClick={()=>this.insert(8)} aria-label="8">8</button>
+            <button className="btn" onClick={()=>this.insert(7)} aria-label="7">7</button>
           </div>
           <div className="inputs__row row--3">
             <button className="btn operation" onClick={()=>this.insert('-')} aria-label="Subtract">&#8722;</button>
-            <button className="btn" onClick={()=>this.insert('6')} aria-label="6">6</button>
-            <button className="btn" onClick={()=>this.insert('5')} aria-label="5">5</button>
-            <button className="btn" onClick={()=>this.insert('4')} aria-label="4">4</button>
+            <button className="btn" onClick={()=>this.insert(6)} aria-label="6">6</button>
+            <button className="btn" onClick={()=>this.insert(5)} aria-label="5">5</button>
+            <button className="btn" onClick={()=>this.insert(4)} aria-label="4">4</button>
           </div>
           <div className="inputs__row row--4">
             <button className="btn operation" onClick={()=>this.insert('+')} aria-label="Add">&#43;</button>
-            <button className="btn" onClick={()=>this.insert('3')} aria-label="3">3</button>
-            <button className="btn" onClick={()=>this.insert('2')} aria-label="2">2</button>
-            <button className="btn" onClick={()=>this.insert('1')} aria-label="1">1</button>
+            <button className="btn" onClick={()=>this.insert(3)} aria-label="3">3</button>
+            <button className="btn" onClick={()=>this.insert(2)} aria-label="2">2</button>
+            <button className="btn" onClick={()=>this.insert(1)} aria-label="1">1</button>
           </div>
           <div className="inputs__row row--5">
-            <button className="btn operation" onClick={this.evaluate}>&#x3d;</button>
+            <button className="btn operation" onClick={()=>this.insert('')}>&#x3d;</button>
             <svg className="btn info" onClick={this.credits} xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="30" height="30" viewBox="0 0 172 172" style={{fill:"#000000"}}><g fill="none" fillRule="nonzero" stroke="none" strokeWidth="1" strokeLinecap="butt" strokeLinejoin="miter" strokeMiterlimit="10" strokeDasharray="" strokeDashoffset="0" fontFamily="none" fontWeight="none" fontSize="none" textAnchor="none" style={{mixBlendMode: "normal"}}><path d="M0,172v-172h172v172z" fill="none"></path><g fill="#fff"><path d="M86,6.88c-43.65603,0 -79.12,35.46397 -79.12,79.12c0,43.65603 35.46397,79.12 79.12,79.12c43.65603,0 79.12,-35.46397 79.12,-79.12c0,-43.65603 -35.46397,-79.12 -79.12,-79.12zM86,13.76c39.93779,0 72.24,32.30221 72.24,72.24c0,39.93779 -32.30221,72.24 -72.24,72.24c-39.93779,0 -72.24,-32.30221 -72.24,-72.24c0,-39.93779 32.30221,-72.24 72.24,-72.24zM86,37.84c-5.69958,0 -10.32,4.62042 -10.32,10.32c0,5.69958 4.62042,10.32 10.32,10.32c5.69958,0 10.32,-4.62042 10.32,-10.32c0,-5.69958 -4.62042,-10.32 -10.32,-10.32zM72.24,72.24v6.88h3.44h3.44v44.72h-3.44h-3.44v6.88h3.44h3.44h13.76h3.44h3.44v-6.88h-3.44h-3.44v-51.6h-3.44h-13.76z"></path></g></g></svg>
-            <button className="btn" onClick={()=>this.insert('0')} aria-label="0">0</button>
+            <button className="btn" onClick={()=>this.insert(0)} aria-label="0">0</button>
             <button className="btn" onClick={()=>this.insert('.')} aria-label=".">.</button>
           </div>
         </div>

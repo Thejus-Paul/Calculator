@@ -24,11 +24,11 @@ class App extends Component {
       let copyNumberArray = this.state.numberArray
       let copyOperatorArray = this.state.operatorArray
       copyNumberArray.push(Number(this.state.number))
-      if(x !== '') copyOperatorArray.push(x)
+      copyOperatorArray.push(x)
       this.setState({ 
         number: '',
         numberArray: copyNumberArray,
-        operatorArray: this.state.operatorArray
+        operatorArray: copyOperatorArray
        })
       console.log(this.state.numberArray, this.state.operatorArray)
     }
@@ -45,7 +45,7 @@ class App extends Component {
   }
   
   backspace = () => {
-    let copyNumber = this.state.number;
+    let copyNumber = this.state.number
     copyNumber = copyNumber.split('')
     copyNumber.pop()
     copyNumber = copyNumber.join('')
@@ -59,10 +59,15 @@ class App extends Component {
   }
   
   evaluate = () => {
-    let value = eval(document.getElementById('display').innerText)
-    this.clear()
-    if(!Number.isSafeInteger(value)) document.getElementById('display').innerText = value.toPrecision(3)
-    else document.getElementById('display').innerText = value
+    let result = "";
+    for(let i=0; i<this.state.operatorArray.length; i++) {
+      
+      result += this.state.numberArray[i]
+      result += this.state.operatorArray[i]
+    }
+    console.log(this.state.operatorArray.values('/'))
+    result += this.state.number
+    console.log(result)
   }
   
   credits = () => {
@@ -102,7 +107,7 @@ class App extends Component {
             <button className="btn" onClick={()=>this.insert(1)} aria-label="1">1</button>
           </div>
           <div className="inputs__row row--5">
-            <button className="btn operation" onClick={()=>this.insert('')}>&#x3d;</button>
+            <button className="btn operation" onClick={this.evaluate}>&#x3d;</button>
             <svg className="btn info" onClick={this.credits} xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="30" height="30" viewBox="0 0 172 172" style={{fill:"#000000"}}><g fill="none" fillRule="nonzero" stroke="none" strokeWidth="1" strokeLinecap="butt" strokeLinejoin="miter" strokeMiterlimit="10" strokeDasharray="" strokeDashoffset="0" fontFamily="none" fontWeight="none" fontSize="none" textAnchor="none" style={{mixBlendMode: "normal"}}><path d="M0,172v-172h172v172z" fill="none"></path><g fill="#fff"><path d="M86,6.88c-43.65603,0 -79.12,35.46397 -79.12,79.12c0,43.65603 35.46397,79.12 79.12,79.12c43.65603,0 79.12,-35.46397 79.12,-79.12c0,-43.65603 -35.46397,-79.12 -79.12,-79.12zM86,13.76c39.93779,0 72.24,32.30221 72.24,72.24c0,39.93779 -32.30221,72.24 -72.24,72.24c-39.93779,0 -72.24,-32.30221 -72.24,-72.24c0,-39.93779 32.30221,-72.24 72.24,-72.24zM86,37.84c-5.69958,0 -10.32,4.62042 -10.32,10.32c0,5.69958 4.62042,10.32 10.32,10.32c5.69958,0 10.32,-4.62042 10.32,-10.32c0,-5.69958 -4.62042,-10.32 -10.32,-10.32zM72.24,72.24v6.88h3.44h3.44v44.72h-3.44h-3.44v6.88h3.44h3.44h13.76h3.44h3.44v-6.88h-3.44h-3.44v-51.6h-3.44h-13.76z"></path></g></g></svg>
             <button className="btn" onClick={()=>this.insert(0)} aria-label="0">0</button>
             <button className="btn" onClick={()=>this.insert('.')} aria-label=".">.</button>

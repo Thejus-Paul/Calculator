@@ -28,7 +28,7 @@
                 },
                 {
                     "key": "Content-Security-Policy",
-                    "value": "default-src https://calc-pwa.vercel.app https://storage.googleapis.com 'unsafe-inline'"
+                    "value": "default-src https://calc-pwa.vercel.app https://storage.googleapis.com"
                 },
                 {
                     "key": "X-XSS-Protection",

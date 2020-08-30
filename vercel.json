@@ -44,7 +44,11 @@
                 },
                 {
                     "key": "Feature-Policy",
-                    "value": "geolocation 'none'; microphone 'none'; camera 'none'; payment 'none'"
+                    "value": "geolocation 'none'; microphone 'none'; camera 'none'; payment 'none'; midi 'none'; notifications 'none'; push 'none'; sync-xhr 'none'; magnetometer 'none'; gyroscope 'none'; speaker 'none'; vibrate 'none'"
+                },
+                {
+                    "key": "Expect-CT",
+                    "value": "enforce, max-age=30"
                 }
             ]
         }

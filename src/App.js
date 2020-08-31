@@ -5,9 +5,7 @@ class App extends Component {
   constructor() {
     super();
     this.state = {
-      number: '',
-      numberArray: [],
-      operatorArray: []
+      expression: ''
     }
     this.insert = this.insert.bind(this)
     this.clear = this.clear.bind(this)
@@ -17,57 +15,34 @@ class App extends Component {
   }
 
   insert = (x) => {
-    if(typeof(x) === "number" || x === '.') {
-      this.setState({ number: this.state.number+x })
-    } 
-    else if(typeof(x) === "string") {
-      let copyNumberArray = this.state.numberArray
-      let copyOperatorArray = this.state.operatorArray
-      copyNumberArray.push(Number(this.state.number))
-      copyOperatorArray.push(x)
-      this.setState({ 
-        number: '',
-        numberArray: copyNumberArray,
-        operatorArray: copyOperatorArray
-       })
-      console.log(this.state.numberArray, this.state.operatorArray)
-    }
-    document.getElementById('display').innerText += x
+  this.setState({
+    expression: document.getElementById('display').innerText + x
+  })
+  document.getElementById('display').innerText += x
+  console.log(this.state.expression)
   }
+
   
   clear = () => {
     this.setState({
-      number: '',
-      numberArray: [],
-      operatorArray: []
+      expression: ''
     })
     document.getElementById('display').innerText = ''
   }
   
   backspace = () => {
-    let copyNumber = this.state.number
-    copyNumber = copyNumber.split('')
-    copyNumber.pop()
-    copyNumber = copyNumber.join('')
-    this.setState({
-      number: copyNumber
-    })
     let text = document.getElementById('display').innerText
     text = text.split('')
     text.pop()
     document.getElementById('display').innerText = text.join('')
+    this.setState({
+      expression: text.join('')
+    })
+    console.log(this.state.expression)
   }
   
   evaluate = () => {
-    let result = "";
-    for(let i=0; i<this.state.operatorArray.length; i++) {
-      
-      result += this.state.numberArray[i]
-      result += this.state.operatorArray[i]
-    }
-    console.log(this.state.operatorArray.values('/'))
-    result += this.state.number
-    console.log(result)
+    document.getElementById('display').innerHTML = eval(this.state.expression)
   }
   
   credits = () => {

@@ -5,6 +5,7 @@ class App extends Component {
   constructor() {
     super();
     this.state = {
+      lastIndexOfOperator: 0,
       hasDecimalPoint: false,
       wasPrevOperator: false,
       expression: ''
@@ -22,14 +23,18 @@ class App extends Component {
     const EXPRESSION = document.getElementById('display').innerText
     /* Sets `wasPrevOperator` to true if the input is an operator.
      This is to avoid entering another operator immediately after inserting an operator. */
-    if(OPERATORS.includes(input)) this.setState({ wasPrevOperator: true })
-    else this.setState({ wasPrevOperator: false })
+    if(OPERATORS.includes(input)===true)
+      this.setState({ wasPrevOperator: true })
+    else
+      this.setState({ wasPrevOperator: false })
+
     /* Checks if the current input is an operator AND if the previous input wasn't an operator.
     If the check passes then it will append the input to the expression and sets `hasDecimalPoint` to false,
     otherwise it will check if the input is a number or a decimal point and appends it. */
     if((OPERATORS.includes(input)) && (this.state.wasPrevOperator === false)) {
       this.setState({
         hasDecimalPoint: false,
+        lastIndexOfOperator: this.state.lastIndexOfOperator+1,
         expression: EXPRESSION + input
       })
       document.getElementById('display').innerText += input
@@ -55,19 +60,50 @@ class App extends Component {
   
   clear = () => {
     this.setState({
+      lastIndexOfOperator: 0,
+      hasDecimalPoint: false,
+      wasPrevOperator: false,
       expression: ''
     })
     document.getElementById('display').innerText = ''
   }
-  
+  componentDidUpdate = () => {
+    console.log("Expression: ",this.state.expression,"\nHas Decimal Point: ",this.state.hasDecimalPoint,"\nWas Previous Operator: ",this.state.wasPrevOperator,"\nLast Index Of Operator: ",this.state.lastIndexOfOperator)
+  }
   backspace = () => {
-    let text = document.getElementById('display').innerText
-    text = text.split('')
-    text.pop()
-    document.getElementById('display').innerText = text.join('')
-    this.setState({
-      expression: text.join('')
-    })
+    const OPERATORS = ['+','-','*','/','%']
+    /* Splits the elements in the expression currently displayed on the screen into 
+    an array */
+    const EXPRESSION = document.getElementById('display').innerText.split('')
+    // Gets the last value from the array and removes it
+    const REMOVED_VALUE = EXPRESSION.pop()
+    /* Checks if last value after removal is an operator.
+    If it was, sets `wasPrevOperator` to true. */
+    if(OPERATORS.includes(EXPRESSION[EXPRESSION.length-1])) 
+      this.setState({ wasPrevOperator: true })
+    /* Checks if the `REMOVE_VALUE` was an operator.
+    If it was, then the last value will be a number. So, we sets `wasPrevOperator` to false. */
+    if(OPERATORS.includes(REMOVED_VALUE)) {
+      this.setState({ 
+        lastIndexOfOperator: this.state.lastIndexOfOperator-1,
+        wasPrevOperator: false 
+      })
+    } 
+    let lastIndexOfDecimal = EXPRESSION.lastIndexOf('.')
+    
+    console.log("Decimal: ",lastIndexOfDecimal)
+    if(this.state.lastIndexOfOperator > lastIndexOfDecimal)
+      this.setState({ hasDecimalPoint: false })
+    else if(this.state.lastIndexOfOperator < lastIndexOfDecimal)
+      this.setState({ hasDecimalPoint: true })
+    /* Checks if the `REMOVED_VALUE` was a decimal point.
+    If it was, set `hasDecimalPoint` to false. */
+    if(REMOVED_VALUE === '.') this.setState({ hasDecimalPoint: false })
+    /* Checks if the `REMOVED_VALUE` was empty.
+    If it was, reset all variables in the state. */
+    if(REMOVED_VALUE === '') this.clear()
+    document.getElementById('display').innerText = EXPRESSION.join('')
+    this.setState({ expression: EXPRESSION.join('') })
   }
   
   evaluate = () => {

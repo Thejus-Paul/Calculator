@@ -5,6 +5,8 @@ class App extends Component {
   constructor() {
     super();
     this.state = {
+      hasDecimalPoint: false,
+      wasPrevOperator: false,
       expression: ''
     }
     this.insert = this.insert.bind(this)
@@ -14,12 +16,40 @@ class App extends Component {
     this.credits = this.credits.bind(this)
   }
 
-  insert = (x) => {
-  this.setState({
-    expression: document.getElementById('display').innerText + x
-  })
-  document.getElementById('display').innerText += x
-  console.log(this.state.expression)
+  insert = (input) => {
+    const OPERATORS = ['+','-','*','/','%']
+    // Expression currently displayed on the screen
+    const EXPRESSION = document.getElementById('display').innerText
+    /* Sets `wasPrevOperator` to true if the input is an operator.
+     This is to avoid entering another operator immediately after inserting an operator. */
+    if(OPERATORS.includes(input)) this.setState({ wasPrevOperator: true })
+    else this.setState({ wasPrevOperator: false })
+    /* Checks if the current input is an operator AND if the previous input wasn't an operator.
+    If the check passes then it will append the input to the expression and sets `hasDecimalPoint` to false,
+    otherwise it will check if the input is a number or a decimal point and appends it. */
+    if((OPERATORS.includes(input)) && (this.state.wasPrevOperator === false)) {
+      this.setState({
+        hasDecimalPoint: false,
+        expression: EXPRESSION + input
+      })
+      document.getElementById('display').innerText += input
+    }
+    else if(typeof(input) === "number") {
+      this.setState({ expression: EXPRESSION + input })
+      document.getElementById('display').innerText += input
+    }
+    else if(input === '.') {
+      /* Checks if the number had a decimal point,
+      if it has one, then it will not let the user to insert anymore decimal points.
+      Otherwise it append the decimal point */
+      if(!this.state.hasDecimalPoint) {
+        this.setState({
+          hasDecimalPoint: true,
+          expression: EXPRESSION + input
+        })
+        document.getElementById('display').innerText += input
+      }
+    }
   }
 
   
@@ -38,10 +68,10 @@ class App extends Component {
     this.setState({
       expression: text.join('')
     })
-    console.log(this.state.expression)
   }
   
   evaluate = () => {
+    console.log("Expression: ",this.state.expression)
     document.getElementById('display').innerHTML = eval(this.state.expression)
   }
   

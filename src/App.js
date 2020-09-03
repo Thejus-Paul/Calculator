@@ -31,7 +31,14 @@ class App extends Component {
     /* Checks if the current input is an operator AND if the previous input wasn't an operator.
     If the check passes then it will append the input to the expression and sets `hasDecimalPoint` to false,
     otherwise it will check if the input is a number or a decimal point and appends it. */
-    if((OPERATORS.includes(input)) && (this.state.wasPrevOperator === false)) {
+    if((input === '-') && (this.state.wasPrevOperator === false)) {
+      this.setState({
+        hasDecimalPoint: false,
+        expression: EXPRESSION + input
+      })
+      document.getElementById('display').innerText += input
+    }
+    else if((OPERATORS.includes(input)) && (this.state.wasPrevOperator === false)) {
       this.setState({
         hasDecimalPoint: false,
         lastIndexOfOperator: this.state.lastIndexOfOperator+1,
@@ -66,9 +73,6 @@ class App extends Component {
       expression: ''
     })
     document.getElementById('display').innerText = ''
-  }
-  componentDidUpdate = () => {
-    console.log("Expression: ",this.state.expression,"\nHas Decimal Point: ",this.state.hasDecimalPoint,"\nWas Previous Operator: ",this.state.wasPrevOperator,"\nLast Index Of Operator: ",this.state.lastIndexOfOperator)
   }
   backspace = () => {
     const OPERATORS = ['+','-','*','/','%']
@@ -107,8 +111,34 @@ class App extends Component {
   }
   
   evaluate = () => {
-    console.log("Expression: ",this.state.expression)
-    document.getElementById('display').innerHTML = eval(this.state.expression)
+    let expression = this.state.expression
+    const OPERATORS = ['+','-','*','/']
+    const REGEX = {
+      '+': /[0-9.]+\+[0-9.]+/g,
+      '-': /[0-9.]+-[0-9.]+/g,
+      '*': /[0-9.]+\*[0-9.]+/g,
+      '/': /[0-9.]+\/[0-9.]+/g
+    }
+    const OPERATION = {
+      '+': (a,b) => a+b,
+      '-': (a,b) => a-b,
+      '*': (a,b) => a*b,
+      '/': (a,b) => a/b
+    }
+    let value, operands, exp, regex
+    while(expression.indexOf('/')>-1 || expression.indexOf('*')>-1 || expression.indexOf('-')>0 || expression.indexOf('+')>-1) {
+    for(let operator=3; operator >= 0; --operator) {
+      if(expression.indexOf(OPERATORS[operator])>-1) {
+        regex = REGEX[OPERATORS[operator]]
+        for(exp of expression.match(regex)) {
+          operands = exp.split(OPERATORS[operator])
+          value = OPERATION[OPERATORS[operator]](Number(operands[0]),Number(operands[1]))
+          expression = expression.replace(exp,value)
+        }
+      }
+    }
+  }
+  document.getElementById('display').innerHTML = expression
   }
   
   credits = () => {

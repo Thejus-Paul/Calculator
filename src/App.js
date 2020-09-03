@@ -31,14 +31,8 @@ class App extends Component {
     /* Checks if the current input is an operator AND if the previous input wasn't an operator.
     If the check passes then it will append the input to the expression and sets `hasDecimalPoint` to false,
     otherwise it will check if the input is a number or a decimal point and appends it. */
-    if((input === '-') && (this.state.wasPrevOperator === false)) {
-      this.setState({
-        hasDecimalPoint: false,
-        expression: EXPRESSION + input
-      })
-      document.getElementById('display').innerText += input
-    }
-    else if((OPERATORS.includes(input)) && (this.state.wasPrevOperator === false)) {
+
+    if((OPERATORS.includes(input)) && (this.state.wasPrevOperator === false) && (this.state.expression !== '')) {
       this.setState({
         hasDecimalPoint: false,
         lastIndexOfOperator: this.state.lastIndexOfOperator+1,
